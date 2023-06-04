@@ -1,0 +1,16 @@
+[package]
+name = "checkmate"
+version = "0.1.0"
+edition = "2021"
+authors = [
+  "Pit Kleyersburg <pit.kleyersburg@kaiserkraft.com>",
+  "KAISER+KRAFT EUROPA GmbH <webshop-devops@kaiserkraft-europa.de>"
+]
+license = "Apache-2.0"
+
+[dependencies]
+anyhow = "1.0.71"
+checkmk-client = { path = "../checkmk-client/" }
+clap = { version = "4.3.1", features = ["derive", "env"] }
+serde = { version = "1.0.163", features = ["derive"] }
+serde_yaml = "0.9.21"
