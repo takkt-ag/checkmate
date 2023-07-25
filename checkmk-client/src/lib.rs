@@ -18,8 +18,12 @@ pub mod changes;
 pub mod folders;
 pub mod hosts;
 pub mod models;
+pub mod rules;
 
-use reqwest::header;
+use reqwest::{
+    blocking::RequestBuilder,
+    header,
+};
 use serde::{
     de::DeserializeOwned,
     Serialize,
@@ -97,6 +101,42 @@ impl Client {
             },
             endpoint.as_ref()
         )
+    }
+
+    fn delete<S: AsRef<str>>(&self, endpoint: S) -> Result<()> {
+        self.http_client
+            .delete(self.url_for_endpoint(endpoint))
+            .send()?
+            .error_for_status()
+            .map(|_| ())
+            .map_err(Into::into)
+    }
+
+    fn get<O: DeserializeOwned, S: AsRef<str>>(&self, endpoint: S) -> Result<O> {
+        self.http_client
+            .get(self.url_for_endpoint(endpoint))
+            .send()?
+            .error_for_status()?
+            .json()
+            .map_err(Into::into)
+    }
+
+    fn get_with_action<
+        O: DeserializeOwned,
+        S: AsRef<str>,
+        A: FnOnce(RequestBuilder) -> RequestBuilder,
+    >(
+        &self,
+        endpoint: S,
+        action: A,
+    ) -> Result<O> {
+        let mut request_builder = self.http_client.get(self.url_for_endpoint(endpoint));
+        request_builder = action(request_builder);
+        request_builder
+            .send()?
+            .error_for_status()?
+            .json()
+            .map_err(Into::into)
     }
 
     fn get_with_etag<O: DeserializeOwned, S: AsRef<str>>(&self, endpoint: S) -> Result<(O, ETag)> {

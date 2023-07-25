@@ -16,12 +16,17 @@
 
 mod folders;
 mod hosts;
+mod rulesets;
 
 pub use folders::{
     Folder,
     Folders,
 };
 pub use hosts::Host;
+pub use rulesets::{
+    Rule,
+    Ruleset,
+};
 
 use anyhow::{
     Context,

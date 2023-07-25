@@ -53,7 +53,11 @@ fn apply_folders(client: &checkmk_client::Client, folder: &Folder) -> Result<()>
             host.apply_to_site(client)?;
         }
     }
-    // TODO: folders.rulesets need to be applied.
+    if let Some(rulesets) = &folder.rulesets {
+        for ruleset in rulesets.values() {
+            ruleset.apply_to_site(client)?;
+        }
+    }
     Ok(())
 }
 

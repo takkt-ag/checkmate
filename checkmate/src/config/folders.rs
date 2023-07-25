@@ -63,6 +63,18 @@ fn populate_folder(path: PathBuf, mut folder: Folder) -> Rc<Folder> {
                 host.folder = folder_weak.clone();
             });
         }
+        if let Some(rulesets) = &mut folder.rulesets {
+            rulesets.iter_mut().for_each(|(_, ruleset)| {
+                let mut r = (**ruleset).clone();
+                r.folder = folder_weak.clone();
+                *ruleset = Rc::new_cyclic(move |ruleset_weak| {
+                    for rule in r.rules.iter_mut() {
+                        rule.ruleset = ruleset_weak.clone();
+                    }
+                    r
+                });
+            });
+        }
 
         folder.folders = folder
             .folders
@@ -90,10 +102,39 @@ pub struct Folder {
     pub path: PathBuf,
     pub title: String,
     pub attributes: Option<FolderAttributes>,
-    pub rulesets: Option<HashMap<String, Ruleset>>,
+    #[serde(default, deserialize_with = "deserialize_rulesets")]
+    pub rulesets: Option<HashMap<String, Rc<Ruleset>>>,
     pub hosts: Option<Vec<Host>>,
     #[serde(flatten, deserialize_with = "crate::de::deserialize_map_values_as_rc")]
     pub folders: HashMap<String, Rc<Folder>>,
+}
+
+fn deserialize_rulesets<'de, D>(
+    deserializer: D,
+) -> std::result::Result<Option<HashMap<String, Rc<Ruleset>>>, D::Error>
+where
+    D: Deserializer<'de>,
+{
+    let rulesets: HashMap<String, Ruleset> = HashMap::deserialize(deserializer)?;
+    Ok(Some(
+        rulesets
+            .into_iter()
+            .map(|(name, mut ruleset)| {
+                let ruleset = Rc::new_cyclic({
+                    let name = name.clone();
+                    move |ruleset_weak| {
+                        for rule in ruleset.rules.iter_mut() {
+                            rule.ruleset = ruleset_weak.clone();
+                            rule.normalize_properties(&name);
+                        }
+                        ruleset.name = name;
+                        ruleset
+                    }
+                });
+                (name, ruleset)
+            })
+            .collect(),
+    ))
 }
 
 impl Folder {
