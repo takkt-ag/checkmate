@@ -34,7 +34,8 @@ pub struct Args {
     pub username: String,
     /// The secret to use for authentication.
     ///
-    /// You should preferably provide this through the environment variable `CHECKMATE_SECRET`.
+    /// You should preferably provide this through the environment variable
+    /// `CHECKMATE_CHECKMK_SECRET`.
     #[arg(long, env = "CHECKMATE_CHECKMK_SECRET")]
     pub secret: String,
     /// The configuration file to use.

@@ -44,7 +44,7 @@ Options:
       --secret <SECRET>
           The secret to use for authentication.
 
-          You should preferably provide this through the environment variable `CHECKMATE_SECRET`.
+          You should preferably provide this through the environment variable `CHECKMATE_CHECKMK_SECRET`.
 
           [env: CHECKMATE_CHECKMK_SECRET=]
 
