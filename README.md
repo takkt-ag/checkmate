@@ -12,7 +12,7 @@ you'll have to clone the repository and install it from there:
 ```shell
 git clone https://github.com/takkt-ag/checkmate.git
 cd checkmate
-cargo install --path .
+cargo install --path checkmate
 ```
 
 ## Usage
