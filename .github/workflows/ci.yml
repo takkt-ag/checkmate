@@ -19,6 +19,9 @@ jobs:
         ./.ci/check-license-comments.sh
 
   linting:
+    permissions:
+      contents: read
+      checks: write # required for clippy-check
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
