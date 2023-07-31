@@ -42,6 +42,6 @@ RUN set -ex ;\
 
 FROM alpine
 
-COPY --from=builder /app/checkmate /usr/bin/checkmate
+COPY --from=builder /app/checkmate/checkmate /usr/bin/checkmate
 
 ENTRYPOINT ["/usr/bin/checkmate"]
