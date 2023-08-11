@@ -9,8 +9,8 @@ authors = [
 license = "Apache-2.0"
 
 [dependencies]
-anyhow = "1.0.72"
 checkmk-client = { path = "../checkmk-client/" }
+color-eyre = "0.6.2"
 clap = { version = "4.3.19", features = ["derive", "env"] }
 serde = { version = "1.0.176", features = ["derive"] }
 serde_yaml = "0.9.25"
