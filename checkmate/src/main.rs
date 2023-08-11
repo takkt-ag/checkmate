@@ -62,7 +62,7 @@ fn apply_folders(client: &checkmk_client::Client, folder: &Folder) -> Result<()>
 }
 
 fn apply_pending_changes(client: &checkmk_client::Client) -> Result<()> {
-    let ((), etag) = client.changes().show_all_pending_changes()?;
+    let (_, etag) = client.changes().show_all_pending_changes()?;
     match client.changes().activate_pending_changes(etag) {
         Ok(c) => {
             client.changes().wait_for_activation_completion(&c.id)?;

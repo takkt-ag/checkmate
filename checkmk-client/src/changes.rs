@@ -37,7 +37,7 @@ impl ChangesApi for Client {
 }
 
 impl<'a> ChangesClient<'a> {
-    pub fn show_all_pending_changes(&self) -> Result<((), ETag)> {
+    pub fn show_all_pending_changes(&self) -> Result<(ShowAllPendingChangesResponse, ETag)> {
         self.0
             .get_with_etag("/domain-types/activation_run/collections/pending_changes")
     }
@@ -64,6 +64,21 @@ impl<'a> ChangesClient<'a> {
             },
         )
     }
+}
+
+#[derive(Clone, Debug, Deserialize)]
+pub struct ShowAllPendingChangesResponse {
+    #[serde(rename = "value")]
+    pub pending_changes: Vec<PendingChange>,
+}
+
+#[derive(Clone, Debug, Deserialize)]
+pub struct PendingChange {
+    pub id: String,
+    pub user_id: String,
+    pub action_name: String,
+    pub text: String,
+    pub time: String,
 }
 
 #[derive(Clone, Debug, Serialize)]
