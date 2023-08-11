@@ -17,10 +17,42 @@ cargo install --path checkmate
 
 ## Usage
 
+`checkmate`:
+
 ```text
 Configure checkmk declaratively using checkmate by providing a configuration file
 
-Usage: checkmate [OPTIONS] --server-url <SERVER_URL> --site <SITE> --secret <SECRET>
+Usage: checkmate <COMMAND>
+
+Commands:
+  lint   Link the configuration file to the checkmk site
+  apply  Apply the configuration to the checkmk site
+  help   Print this message or the help of the given subcommand(s)
+
+Options:
+  -h, --help     Print help
+  -V, --version  Print version
+```
+
+`checkmate lint`:
+
+```text
+Validate the configuration file
+
+Usage: checkmate lint [OPTIONS]
+
+Options:
+      --config-file <CONFIG_FILE>  The configuration file to use [env: CHECKMATE_CONFIG_FILE=] [default: checkmate.yaml]
+      --print-config               Print the internal repesentation of the configuration file after loading it
+  -h, --help                       Print help
+```
+
+`checkmate apply`:
+
+```text
+Apply the configuration to the checkmk site
+
+Usage: checkmate apply [OPTIONS] --server-url <SERVER_URL> --site <SITE> --secret <SECRET>
 
 Options:
       --server-url <SERVER_URL>
@@ -56,9 +88,6 @@ Options:
 
   -h, --help
           Print help (see a summary with '-h')
-
-  -V, --version
-          Print version
 ```
 
 ## Missing features

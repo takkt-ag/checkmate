@@ -14,13 +14,41 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-use clap::Parser;
+use clap::{
+    Args,
+    Parser,
+    Subcommand,
+};
 use std::path::PathBuf;
 
 /// Configure checkmk declaratively using checkmate by providing a configuration file.
 #[derive(Debug, Parser)]
 #[command(version, about)]
-pub struct Args {
+pub struct Cli {
+    #[command(subcommand)]
+    pub command: Commands,
+}
+
+#[derive(Debug, Subcommand)]
+pub enum Commands {
+    /// Validate the configuration file.
+    Lint(Lint),
+    /// Apply the configuration to the checkmk site.
+    Apply(Apply),
+}
+
+#[derive(Debug, Args)]
+pub struct Lint {
+    /// The configuration file to use.
+    #[arg(long, default_value = "checkmate.yaml", env = "CHECKMATE_CONFIG_FILE")]
+    pub config_file: PathBuf,
+    /// Print the internal repesentation of the configuration file after loading it.
+    #[arg(long)]
+    pub print_config: bool,
+}
+
+#[derive(Debug, Args)]
+pub struct Apply {
     /// URL to the checkmk server.
     ///
     /// If checkmk is not running at the root-path, please include the required prefix here.

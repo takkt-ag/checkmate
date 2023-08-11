@@ -28,7 +28,28 @@ use color_eyre::eyre::Result;
 
 fn main() -> Result<()> {
     color_eyre::install()?;
-    let args = cli::Args::parse();
+    let cli = cli::Cli::parse();
+
+    match cli.command {
+        cli::Commands::Lint(args) => lint(args),
+        cli::Commands::Apply(args) => apply(args),
+    }
+}
+
+fn lint(args: cli::Lint) -> Result<()> {
+    // Loading the config already validates that the file is valid YAML, conforms to our schema, and
+    // that certain preconditions (like no duplicate hosts) are fulfilled.
+    let config = DeclarativeConfig::load_from_file(&args.config_file)?;
+    println!("Provided config file is valid.");
+
+    if args.print_config {
+        println!("{:#?}", config);
+    }
+
+    Ok(())
+}
+
+fn apply(args: cli::Apply) -> Result<()> {
     let client =
         checkmk_client::Client::new(&args.server_url, &args.site, &args.username, &args.secret)?;
     let config = DeclarativeConfig::load_from_file(&args.config_file)?;
