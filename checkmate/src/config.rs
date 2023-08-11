@@ -28,9 +28,9 @@ pub use rulesets::{
     Ruleset,
 };
 
-use anyhow::{
-    Context,
+use color_eyre::eyre::{
     Result,
+    WrapErr,
 };
 use serde::Deserialize;
 use std::{
@@ -48,7 +48,7 @@ pub struct DeclarativeConfig {
 impl DeclarativeConfig {
     pub fn load_from_file<P: AsRef<Path>>(path: P) -> Result<Self> {
         let config: DeclarativeConfig = serde_yaml::from_reader(std::fs::File::open(path)?)
-            .context("Failed to parse declarative config")?;
+            .wrap_err("Failed to parse declarative config")?;
         config.verify_constraints()?;
         Ok(config)
     }
@@ -60,7 +60,7 @@ impl DeclarativeConfig {
             for host in folder.hosts.iter().flatten() {
                 if let Some(existing_path) = discovered_hosts.insert(&host.host_name, &folder.path)
                 {
-                    anyhow::bail!(
+                    color_eyre::eyre::bail!(
                         "Host {} is defined both in folder {} and folder {}",
                         host.host_name,
                         existing_path.display(),
