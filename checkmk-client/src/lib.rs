@@ -78,8 +78,20 @@ impl Client {
                 secret.as_ref()
             ))?,
         );
+        let redirect_policy_custom = reqwest::redirect::Policy::custom(|attempt| {
+            let url_path = attempt.url().path();
+            if url_path.contains("/objects/activation_run/")
+                && url_path.ends_with("/actions/wait-for-completion/invoke")
+            {
+                reqwest::redirect::Policy::limited(100).redirect(attempt)
+            } else {
+                reqwest::redirect::Policy::default().redirect(attempt)
+            }
+        });
+
         let http_client = reqwest::blocking::Client::builder()
             .default_headers(headers)
+            .redirect(redirect_policy_custom)
             .build()?;
 
         Ok(Self {
