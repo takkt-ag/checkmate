@@ -23,10 +23,7 @@ pub use folders::{
     Folders,
 };
 pub use hosts::Host;
-pub use rulesets::{
-    Rule,
-    Ruleset,
-};
+pub use rulesets::Ruleset;
 
 use color_eyre::eyre::{
     Result,

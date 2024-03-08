@@ -3,3 +3,4 @@ members = [
     "checkmate",
     "checkmk-client",
 ]
+resolver = "2"
