@@ -23,7 +23,7 @@ use std::path::PathBuf;
 
 /// Configure checkmk declaratively using checkmate by providing a configuration file.
 #[derive(Debug, Parser)]
-#[command(version, about)]
+#[command(version, about, max_term_width = 100)]
 pub struct Cli {
     #[command(subcommand)]
     pub command: Commands,
