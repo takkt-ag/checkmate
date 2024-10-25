@@ -105,6 +105,9 @@ Options:
 
 Checkmate is licensed under the Apache License, Version 2.0, (see [LICENSE](LICENSE) or <https://www.apache.org/licenses/LICENSE-2.0>).
 
+Checkmate internally makes use of various open-source projects.
+You can find a full list of these projects and their licenses in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+
 ### Contribution
 
 Unless you explicitly state otherwise, any contribution intentionally submitted for inclusion in Checkmate by you, as defined in the Apache-2.0 license, shall be licensed under the Apache License, Version 2.0, without any additional terms or conditions.
