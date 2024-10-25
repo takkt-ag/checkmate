@@ -4,7 +4,7 @@ This page lists the licenses of the projects used in Persevere.
 
 ## Overview of licenses
 
-- [Apache License 2.0](#Apache-2.0) (110)
+- [Apache License 2.0](#Apache-2.0) (115)
 - [MIT License](#MIT) (25)
 - [ISC License](#ISC) (4)
 - [BSD 3-Clause &quot;New&quot; or &quot;Revised&quot; License](#BSD-3-Clause) (1)
@@ -1500,6 +1500,7 @@ This page lists the licenses of the projects used in Persevere.
 - [clap 4.5.20]( https://github.com/clap-rs/clap )
 - [colorchoice 1.0.3]( https://github.com/rust-cli/anstyle.git )
 - [is_terminal_polyfill 1.70.1]( https://github.com/polyfill-rs/is_terminal_polyfill )
+- [terminal_size 0.4.0]( https://github.com/eminence/terminal-size )
 
 <pre>
                                  Apache License
@@ -3187,12 +3188,14 @@ limitations under the License.
 - [autocfg 1.4.0]( https://github.com/cuviper/autocfg )
 - [backtrace 0.3.71]( https://github.com/rust-lang/backtrace-rs )
 - [base64 0.22.1]( https://github.com/marshallpierce/rust-base64 )
+- [bitflags 2.6.0]( https://github.com/bitflags/bitflags )
 - [bumpalo 3.16.0]( https://github.com/fitzgen/bumpalo )
 - [cc 1.1.31]( https://github.com/rust-lang/cc-rs )
 - [cfg-if 1.0.0]( https://github.com/alexcrichton/cfg-if )
 - [color-eyre 0.6.3]( https://github.com/eyre-rs/eyre )
 - [color-spantrace 0.2.1]( https://github.com/eyre-rs/eyre )
 - [equivalent 1.0.1]( https://github.com/cuviper/equivalent )
+- [errno 0.3.9]( https://github.com/lambda-fairy/rust-errno )
 - [eyre 0.6.12]( https://github.com/eyre-rs/eyre )
 - [fnv 1.0.7]( https://github.com/servo/rust-fnv )
 - [form_urlencoded 1.2.1]( https://github.com/servo/rust-url )
@@ -3206,12 +3209,14 @@ limitations under the License.
 - [indexmap 2.6.0]( https://github.com/indexmap-rs/indexmap )
 - [js-sys 0.3.72]( https://github.com/rustwasm/wasm-bindgen/tree/master/crates/js-sys )
 - [lazy_static 1.5.0]( https://github.com/rust-lang-nursery/lazy-static.rs )
+- [linux-raw-sys 0.4.14]( https://github.com/sunfishcode/linux-raw-sys )
 - [log 0.4.22]( https://github.com/rust-lang/log )
 - [mime 0.3.17]( https://github.com/hyperium/mime )
 - [object 0.32.2]( https://github.com/gimli-rs/object )
 - [once_cell 1.20.2]( https://github.com/matklad/once_cell )
 - [percent-encoding 2.3.1]( https://github.com/servo/rust-url/ )
 - [rustc-demangle 0.1.24]( https://github.com/rust-lang/rustc-demangle )
+- [rustix 0.38.37]( https://github.com/bytecodealliance/rustix )
 - [rustls-pemfile 2.2.0]( https://github.com/rustls/pemfile )
 - [rustls 0.23.15]( https://github.com/rustls/rustls )
 - [smallvec 1.13.2]( https://github.com/servo/rust-smallvec )
