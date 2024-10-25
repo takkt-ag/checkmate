@@ -92,9 +92,44 @@ Options:
 
 ## Missing features
 
-* [ ] Hosts: hosts removed from configuration (i.e. orphaned hosts) are not automatically removed.
+* Automatic removal of resources  
+  [Issue #19](https://github.com/takkt-ag/checkmate/issues/19)
+  * Hosts: hosts removed from configuration (i.e. orphaned hosts) are not automatically removed.
     * Workaround: manually remove the host through the Checkmk UI.
-* [ ] Folders: folders removed from configuration (i.e. orphaned folders) are not automatically removed.
+  * Folders: folders removed from configuration (i.e. orphaned folders) are not automatically removed.
     * Workaround: manually remove the folder through the Checkmk UI.
-* [ ] Rulesets: removal of an entire ruleset will not remove the rules from Checkmk.
+  * Rulesets: removal of an entire ruleset will not remove the rules from Checkmk.
     * Workaround: do not remove the entire ruleset from the YAML-file, but define an explicit empty list.
+
+## License
+
+Checkmate is licensed under the Apache License, Version 2.0, (see [LICENSE](LICENSE) or <https://www.apache.org/licenses/LICENSE-2.0>).
+
+### Contribution
+
+Unless you explicitly state otherwise, any contribution intentionally submitted for inclusion in Checkmate by you, as defined in the Apache-2.0 license, shall be licensed under the Apache License, Version 2.0, without any additional terms or conditions.
+
+We require code submitted to be formatted with Rust's default rustfmt formatter (CI will automatically verified if your code is formatted correctly).
+We are using unstable rustfmt formatting rules, which requires running the formatter with a nightly toolchain, which you can do as follows:
+
+```sh
+$ rustup toolchain install nightly
+$ cargo +nightly fmt
+```
+
+(Building and running Checkmate itself can and should happen with the stable toolchain.)
+
+Additionally we are also checking whether there are any clippy warnings in your code.
+You can run clippy locally with:
+
+```sh
+$ cargo clippy --workspace --lib --bins --tests --all-targets -- -Dwarnings
+```
+
+There can be occasions where newer versions of clippy warn about code you haven't touched.
+In such cases we'll try to get those warnings resolved before merging your changes, or work together with you to get them resolved in your merge request.
+
+## Affiliation
+
+This project has no official affiliation with Checkmk GmbH, Checkmk.com, or any of their affiliates.
+"Checkmk", formerly "Check_MK", and the Checkmk logo are trademarks of Checkmk GmbH.
