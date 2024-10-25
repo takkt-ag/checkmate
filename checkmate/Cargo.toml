@@ -8,6 +8,8 @@ authors = [
 ]
 license = "Apache-2.0"
 
+publish = false
+
 [dependencies]
 checkmk-client = { path = "../checkmk-client/" }
 color-eyre = "0.6.3"
