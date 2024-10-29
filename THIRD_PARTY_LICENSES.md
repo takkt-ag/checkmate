@@ -1,6 +1,6 @@
 # Third Party Licenses
 
-This page lists the licenses of the projects used in Persevere.
+This page lists the licenses of the projects used in Checkmate.
 
 ## Overview of licenses
 
