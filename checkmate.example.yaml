@@ -1,0 +1,128 @@
+---
+folders:
+  /:
+    title: Main
+    attributes:
+      labels:
+        checkmate/managed_by: checkmate
+    rulesets:
+      datasource_programs:
+        rules:
+        - id: some_custom_command
+          conditions:
+            host_labels:
+            - key: checkmate/datasource
+              operator: is
+              value: some_custom_command
+          properties:
+            description: >-
+              Use `some_custom_command` script to retrieve checkmk-compatible output for matching hosts
+          value_raw: >-
+            'some_custom_command $HOSTNAME$'
+      host_check_commands:
+        rules:
+        - id: some_custom_command
+          conditions:
+            host_labels:
+            - key: checkmate/datasource
+              operator: is
+              value: some_custom_command
+          properties:
+            description: >-
+              Verify outpost availability through healthcheck-endpoint using `some_custom_command` script
+          value_raw: >-
+            ('custom', 'some_custom_command $HOSTNAME$')
+      periodic_discovery:
+        rules:
+        - id: autodiscover
+          conditions:
+            host_labels:
+            - key: checkmate/autodiscover
+              operator: is
+              value: 'true'
+          properties:
+            description: >-
+              Auto-discover and auto-vanish services for hosts with checkmate/autodiscover:true
+          value_raw: >-
+            {
+              'check_interval': 30.0,
+              'severity_unmonitored': 0,
+              'severity_vanished': 0,
+              'severity_new_host_label': 1,
+              'inventory_rediscovery': {
+                'mode': 2,
+                'group_time': 300,
+                'excluded_time': [],
+                'activation': True
+              }
+            }
+      service_contactgroups:
+        rules:
+        - id: all
+          properties:
+            description: >-
+              Assign all services to group
+          value_raw: >-
+            'SampleProject-ContactGroup-All'
+        - id: sampleproject_backend
+          conditions:
+            service_labels:
+            - key: team
+              operator: is
+              value: Backend
+          properties:
+            description: >-
+              Assign backend services to group
+          value_raw: >-
+            'SampleProject-ContactGroup-Backend'
+
+    /SampleProject:
+      title: Sample Project
+      attributes:
+        labels:
+          project: SP
+          checkmate/autodiscover: 'true'
+
+      /Integration:
+        title: SP - Integration Test Environment
+        attributes:
+          labels:
+            checkmate/environment: Integration
+        hosts:
+        - host_name: host1.int.domain.invalid
+          attributes:
+            entry_ipaddress: "127.0.0.1"
+            tag_criticality: test
+            tag_agent: cmk-agent
+            tag_address_family: ip-v4-only
+        - host_name: host2.int.domain.invalid
+          attributes:
+            entry_ipv6address: "::1"
+            labels:
+              service/language: python
+              service/framework: fastapi
+            tag_criticality: offline
+            tag_agent: all-agents
+            tag_address_family: ip-v6-only
+
+      /Production:
+        title: SP - Production Environment
+        attributes:
+          labels:
+            checkmate/environment: Production
+        hosts:
+        - host_name: host1.prod.domain.invalid
+          attributes:
+            entry_ipaddress: "127.0.0.1"
+            entry_ipv6address: "::1"
+            tag_criticality: prod
+            tag_agent: special-agents
+            tag_address_family: ip-v4v6
+        - host_name: host2.prod.domain.invalid
+          attributes:
+            labels:
+              service/language: python
+              service/framework: fastapi
+            tag_criticality: critical
+            tag_agent: no-agent
+            tag_address_family: no-ip
