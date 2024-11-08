@@ -21,7 +21,12 @@ use clap::{
 };
 use std::path::PathBuf;
 
-/// Configure checkmk declaratively using checkmate by providing a configuration file.
+/// Configure checkmk declaratively by providing a configuration file.
+///
+/// You can find an example configuration file in checkmate's repository in the `checkmate.example.yaml`, which you can
+/// also [find on GitHub][github-example-config].
+///
+/// [github-example-config]: https://github.com/takkt-ag/checkmate/blob/main/checkmate.example.yaml
 #[derive(Debug, Parser)]
 #[command(version, about, max_term_width = 100)]
 pub struct Cli {
@@ -31,9 +36,9 @@ pub struct Cli {
 
 #[derive(Debug, Subcommand)]
 pub enum Commands {
-    /// Validate the configuration file.
+    /// Validate the provided configuration file.
     Lint(Lint),
-    /// Apply the configuration to the checkmk site.
+    /// Apply the provided configuration to the checkmk site.
     Apply(Apply),
 }
 
@@ -42,7 +47,7 @@ pub struct Lint {
     /// The configuration file to use.
     #[arg(long, default_value = "checkmate.yaml", env = "CHECKMATE_CONFIG_FILE")]
     pub config_file: PathBuf,
-    /// Print the internal repesentation of the configuration file after loading it.
+    /// Print the internal representation of the configuration file after loading it.
     #[arg(long)]
     pub print_config: bool,
 }
