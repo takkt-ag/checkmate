@@ -161,7 +161,7 @@ impl HostsApi for Client {
     }
 }
 
-impl<'a> HostsClient<'a> {
+impl HostsClient<'_> {
     pub fn create_host(&self, host: &CreateHostRequest) -> Result<(ShowHostResponse, ETag)> {
         self.0
             .post_with_etag("/domain-types/host_config/collections/all", host)
