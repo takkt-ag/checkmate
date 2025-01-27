@@ -36,7 +36,7 @@ impl ChangesApi for Client {
     }
 }
 
-impl<'a> ChangesClient<'a> {
+impl ChangesClient<'_> {
     pub fn show_all_pending_changes(&self) -> Result<(ShowAllPendingChangesResponse, ETag)> {
         self.0
             .get_with_etag("/domain-types/activation_run/collections/pending_changes")

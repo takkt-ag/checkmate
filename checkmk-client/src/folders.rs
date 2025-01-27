@@ -106,7 +106,7 @@ impl FoldersApi for Client {
     }
 }
 
-impl<'a> FoldersClient<'a> {
+impl FoldersClient<'_> {
     pub fn create_folder(
         &self,
         folder: &CreateFolderRequest,

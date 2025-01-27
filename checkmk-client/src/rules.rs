@@ -220,7 +220,7 @@ impl RulesApi for Client {
     }
 }
 
-impl<'a> RulesClient<'a> {
+impl RulesClient<'_> {
     pub fn create_rule(&self, rule: &CreateRuleRequest) -> Result<ShowRuleResponse> {
         self.0.post("/domain-types/rule/collections/all", rule)
     }
