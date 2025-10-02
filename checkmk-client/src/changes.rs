@@ -25,13 +25,13 @@ use serde::{
 };
 
 pub trait ChangesApi {
-    fn changes(&self) -> ChangesClient;
+    fn changes(&self) -> ChangesClient<'_>;
 }
 
 pub struct ChangesClient<'a>(&'a Client);
 
 impl ChangesApi for Client {
-    fn changes(&self) -> ChangesClient {
+    fn changes(&self) -> ChangesClient<'_> {
         ChangesClient(self)
     }
 }

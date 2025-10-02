@@ -95,13 +95,13 @@ pub struct FolderAttributes {
 }
 
 pub trait FoldersApi {
-    fn folders(&self) -> FoldersClient;
+    fn folders(&self) -> FoldersClient<'_>;
 }
 
 pub struct FoldersClient<'a>(&'a Client);
 
 impl FoldersApi for Client {
-    fn folders(&self) -> FoldersClient {
+    fn folders(&self) -> FoldersClient<'_> {
         FoldersClient(self)
     }
 }

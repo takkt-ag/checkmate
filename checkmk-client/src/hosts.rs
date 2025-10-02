@@ -150,13 +150,13 @@ pub enum SnmpCommunityType {
 }
 
 pub trait HostsApi {
-    fn hosts(&self) -> HostsClient;
+    fn hosts(&self) -> HostsClient<'_>;
 }
 
 pub struct HostsClient<'a>(&'a Client);
 
 impl HostsApi for Client {
-    fn hosts(&self) -> HostsClient {
+    fn hosts(&self) -> HostsClient<'_> {
         HostsClient(self)
     }
 }
