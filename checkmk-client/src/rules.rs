@@ -209,13 +209,13 @@ pub enum ServiceDescriptionConditionOperator {
 }
 
 pub trait RulesApi {
-    fn rules(&self) -> RulesClient;
+    fn rules(&self) -> RulesClient<'_>;
 }
 
 pub struct RulesClient<'a>(&'a Client);
 
 impl RulesApi for Client {
-    fn rules(&self) -> RulesClient {
+    fn rules(&self) -> RulesClient<'_> {
         RulesClient(self)
     }
 }
